@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ежедневный перевод</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            max-width: 550px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        .amount {
+            font-size: 30px;
+            font-weight: bold;
+            color: #e63946;
+            margin: 15px 0;
+        }
+
+        .date-box, .counter-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f7fa;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        .vk-link {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #4c75a3;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: 0.3s ease;
+            font-weight: bold;
+        }
+
+        .vk-link:hover {
+            background: #365d85;
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Ежедневное обязательство</h1>
+
+    <p><span class="highlight">Самира Халикова</span> должна ежедневно переводить</p>
+    <div class="amount">100 рублей</div>
+    <p>получателю:</p>
+    <p class="highlight">Алимирзе Айдунову</p>
+
+    <div class="date-box">
+        📅 Сегодня: <span id="currentDate"></span>
+    </div>
+
+    <div class="counter-box">
+        🔥 День обязательства: <span id="dayCounter"></span>
+    </div>
+
+    <a href="https://vk.com/tenko_fam" target="_blank" class="vk-link">
+        Перейти в мой VK
+    </a>
+
+    <footer>
+        © 2026 | Все права защищены
+    </footer>
+</div>
+
+<script>
+    function updateDate() {
+        const now = new Date();
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById("currentDate").textContent =
+            now.toLocaleDateString("ru-RU", options);
+    }
+
+    function updateCounter() {
+        const startDate = new Date("2026-01-01"); // ← измени дату начала здесь
+        const today = new Date();
+
+        startDate.setHours(0,0,0,0);
+        today.setHours(0,0,0,0);
+
+        const diffTime = today - startDate;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+        document.getElementById("dayCounter").textContent =
+            diffDays > 0 ? diffDays : 0;
+    }
+
+    updateDate();
+    updateCounter();
+
+    // автообновление в 00:00
+    setInterval(() => {
+        updateDate();
+        updateCounter();
+    }, 60000);
+</script>
+
+</body>
+</html>
